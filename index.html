@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e8e8e8",
+              "secondary": "#5f5e5e",
+              "on-tertiary-container": "#ffffff",
+              "surface-container-highest": "#e2e2e2",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c6c6c6",
+              "tertiary-fixed": "#5f5e5e",
+              "on-secondary-fixed-variant": "#3c3b3b",
+              "primary-fixed-dim": "#474747",
+              "outline": "#777777",
+              "on-surface": "#1a1c1c",
+              "tertiary-fixed-dim": "#474747",
+              "on-error-container": "#410002",
+              "surface-container": "#eeeeee",
+              "primary-fixed": "#5e5e5e",
+              "surface": "#f9f9f9",
+              "on-tertiary": "#e4e2e1",
+              "on-primary-container": "#ffffff",
+              "on-primary": "#e2e2e2",
+              "surface-dim": "#dadada",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "tertiary-container": "#757474",
+              "surface-tint": "#5e5e5e",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#f0f1f1",
+              "on-tertiary-fixed-variant": "#e4e2e1",
+              "surface-bright": "#f9f9f9",
+              "on-error": "#ffffff",
+              "secondary-container": "#d6d4d3",
+              "on-tertiary-fixed": "#ffffff",
+              "on-surface-variant": "#474747",
+              "surface-variant": "#e2e2e2",
+              "primary-container": "#3b3b3b",
+              "primary": "#000000",
+              "on-background": "#1a1c1c",
+              "tertiary": "#3b3b3b",
+              "secondary-fixed": "#c8c6c5",
+              "on-secondary-container": "#1c1b1b",
+              "on-primary-fixed-variant": "#e2e2e2",
+              "inverse-surface": "#2f3131",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-container-low": "#f3f3f4",
+              "inverse-primary": "#c6c6c6",
+              "secondary-fixed-dim": "#adabaa",
+              "on-primary-fixed": "#ffffff",
+              "background": "#f9f9f9"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            font-family: 'Inter', sans-serif;
+        }
+        .monolith-text {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+        .kerning-tight { letter-spacing: -0.05em; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<nav class="bg-white dark:bg-black font-['Manrope'] font-black tracking-tighter uppercase docked full-width top-0 z-50 border-b-0 bg-neutral-100 dark:bg-neutral-900 transition-all duration-500 ease-in-out flex justify-between items-center w-full px-12 py-8 max-w-none">
+<div class="text-2xl font-black tracking-tighter text-black dark:text-white uppercase">BEST DESIGNERS</div>
+<div class="hidden md:flex gap-12">
+<a class="text-black dark:text-white border-b-4 border-black dark:border-white pb-1" href="#">Portfolio</a>
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white transition-colors duration-500" href="#">Gallery</a>
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white transition-colors duration-500" href="#">Research</a>
+<a class="text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white transition-colors duration-500" href="#">Contact</a>
+</div>
+<button class="md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<main class="w-full">
+<!-- Hero Section: The Monolith Statement -->
+<section class="px-12 pt-32 pb-48 bg-surface">
+<div class="max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end gap-12">
+<div class="w-full md:w-2/3">
+<span class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary mb-8 block">Project 04 / Type Specimen</span>
+<h1 class="text-[clamp(4rem,15vw,12rem)] monolith-text leading-[0.85] text-primary uppercase">Melbourne<br/>Monolith</h1>
+</div>
+<div class="w-full md:w-1/3 pb-6">
+<p class="font-body text-sm leading-relaxed text-on-surface mb-8 max-w-xs">
+                            An architectural sans-serif inspired by the brutalist concrete structures of the Melbourne School. Designed for permanence and structural integrity.
+                        </p>
+<button class="bg-primary text-on-primary px-8 py-4 monolith-text text-sm uppercase tracking-wider hover:bg-primary-fixed transition-colors">
+                            DownloadSpecimen
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Font Sampler: Interactive Feel -->
+<section class="bg-surface-container-low py-32 px-12">
+<div class="max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-0 border-t border-outline-variant/20">
+<div class="md:col-span-4 py-12 pr-12 border-r border-outline-variant/20">
+<h2 class="font-headline font-bold text-2xl uppercase tracking-tighter mb-4">Live Sampler</h2>
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary">Adjust weight and size to experience the structural rigidity of Monolith.</p>
+</div>
+<div class="md:col-span-8 py-12 md:pl-12">
+<div class="outline-none w-full bg-transparent text-[5vw] monolith-text leading-tight focus:ring-0 overflow-hidden" contenteditable="true" spellcheck="false">
+                            STRUCTURAL INTEGRITY IS NOT AN OPTION.
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Weights Section: From Thin to Black -->
+<section class="bg-surface py-48 px-12">
+<div class="max-w-screen-2xl mx-auto">
+<div class="space-y-24">
+<div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
+<span class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary">01 Weight: Thin</span>
+<span class="text-8xl font-[Manrope] font-[200] tracking-tighter">Monolith</span>
+</div>
+<div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
+<span class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary">02 Weight: Regular</span>
+<span class="text-8xl font-[Manrope] font-[400] tracking-tighter">Monolith</span>
+</div>
+<div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
+<span class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary">03 Weight: Bold</span>
+<span class="text-8xl font-[Manrope] font-[700] tracking-tighter">Monolith</span>
+</div>
+<div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
+<span class="font-label text-[0.6875rem] uppercase tracking-widest text-secondary">04 Weight: Black</span>
+<span class="text-8xl monolith-text tracking-tighter">Monolith</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Macro Details: Ink Traps & Geometry -->
+<section class="bg-primary text-on-primary py-48 px-12 overflow-hidden">
+<div class="max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+<div>
+<h2 class="text-6xl monolith-text uppercase leading-none mb-12">Macro<br/>Anatomy</h2>
+<div class="space-y-12">
+<div class="border-l-4 border-on-primary pl-8">
+<h3 class="font-headline font-bold text-xl uppercase mb-2">Deep Ink Traps</h3>
+<p class="font-body text-sm opacity-70 leading-relaxed">Engineered for high-pressure printing and low-resolution screen rendering. The "voids" in the joins ensure clarity at massive scales.</p>
+</div>
+<div class="border-l-4 border-on-primary pl-8">
+<h3 class="font-headline font-bold text-xl uppercase mb-2">90-Degree Terminals</h3>
+<p class="font-body text-sm opacity-70 leading-relaxed">No curves where a corner will suffice. Every terminal is sheared at a strict right angle to maintain the architectural grid.</p>
+</div>
+</div>
+</div>
+<div class="relative aspect-square bg-primary-container flex items-center justify-center p-12">
+<span class="text-[40rem] monolith-text leading-none kerning-tight select-none">M</span>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<div class="w-full h-px bg-on-primary"></div>
+<div class="h-full w-px bg-on-primary absolute"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Character Set Grid -->
+<section class="bg-surface-container-low py-48 px-12">
+<div class="max-w-screen-2xl mx-auto">
+<div class="mb-24 flex flex-col md:flex-row justify-between items-start gap-8">
+<h2 class="text-4xl monolith-text uppercase">Full Character Set</h2>
+<p class="max-w-sm font-body text-sm text-on-surface-variant">Supporting 240+ languages with full Latin extended character sets, mathematical symbols, and custom architectural ligatures.</p>
+</div>
+<div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-px bg-outline-variant/20 border border-outline-variant/20">
+<!-- Generating a sample of the grid -->
+<div class="bg-surface p-8 text-center monolith-text text-3xl">A</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">B</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">C</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">D</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">E</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">F</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">G</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">H</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">I</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">J</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">K</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">L</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">1</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">2</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">3</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">4</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">5</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">6</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">7</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">8</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">?</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">!</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">&amp;</div>
+<div class="bg-surface p-8 text-center monolith-text text-3xl">@</div>
+</div>
+</div>
+</section>
+<!-- Final CTA: The Monolith Card -->
+<section class="px-12 pb-48">
+<div class="max-w-screen-2xl mx-auto bg-primary p-24 relative overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+<div>
+<h2 class="text-5xl md:text-7xl monolith-text text-on-primary uppercase leading-none mb-4">Acquire the<br/>Monolith</h2>
+<p class="text-on-primary opacity-60 font-body max-w-md">Includes variable font files, technical documentation, and desktop/web licensing.</p>
+</div>
+<button class="bg-on-primary text-primary px-12 py-6 monolith-text text-xl uppercase tracking-widest hover:bg-surface-variant transition-colors">
+                        DownloadSpecimen
+                    </button>
+</div>
+<!-- Abstract Graphic -->
+<div class="absolute top-0 right-0 h-full w-1/3 opacity-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-12 py-20 flex flex-col md:flex-row justify-between items-end gap-8 bg-neutral-100 dark:bg-neutral-900 font-['Inter'] text-[0.6875rem] leading-relaxed uppercase tracking-widest">
+<div class="max-w-2xl text-neutral-500 dark:text-neutral-400">
+            © BEST DESIGNERS. We acknowledge the Traditional Owners of the land, the Wurundjeri Woi-wurrung and Bunurong Boon Wurrung peoples of the Eastern Kulin Nations.
+        </div>
+<div class="flex gap-8">
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white underline" href="#">Privacy</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white underline" href="#">Terms</a>
+</div>
+</footer>
+</body></html>
