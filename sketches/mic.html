@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Microphone Input</title>
+  <!-- Load p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <!-- Load p5.sound library for audio functionality -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+  <style>
+    /* Reset margins and overflow to ensure sketch fills iframe cleanly */
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+    let mic;
+
+    function setup() {
+      // Create a canvas that fills the window
+      createCanvas(windowWidth, windowHeight);
+
+      // Create an AudioIn object to capture microphone input
+      mic = new p5.AudioIn();
+
+      // Start the audio input object
+      // Note: Browsers usually require user interaction before starting audio,
+      // so this might throw a warning until the user clicks the iframe.
+      mic.start();
+    }
+
+    function draw() {
+      // Clear background with a dark color
+      background(30);
+
+      // Get the overall volume (between 0 and 1.0)
+      let vol = mic.getLevel();
+
+      // Map the volume to a sensible range for visualization
+      // Let's use it to control the radius of a circle
+      let radius = map(vol, 0, 1, 10, min(windowWidth, windowHeight) / 2);
+
+      // Map volume to a color
+      let r = map(vol, 0, 1, 100, 255);
+      let g = map(vol, 0, 1, 200, 50);
+      let b = 150;
+
+      // Draw the shape
+      fill(r, g, b);
+      noStroke();
+      // Draw a circle in the center of the canvas
+      ellipse(width / 2, height / 2, radius * 2, radius * 2);
+
+      // Add instruction text
+      fill(255);
+      textAlign(CENTER, CENTER);
+      textSize(16);
+      text("Make some noise!", width / 2, height - 30);
+
+      // Prompt user to click to enable audio context if volume is consistently 0 initially
+      if (getAudioContext().state !== 'running') {
+        text("Click to start audio", width / 2, height / 2);
+      }
+    }
+
+    // Handle window resizing
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+    // Ensure audio context starts on user interaction
+    function mousePressed() {
+      userStartAudio();
+    }
+  </script>
+</body>
+</html>
