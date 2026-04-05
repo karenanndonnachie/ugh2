@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Capture</title>
+  <!-- Load p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <style>
+    /* Reset margins and overflow to ensure sketch fills iframe cleanly */
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+    let capture;
+
+    function setup() {
+      // Create a canvas to fill the window
+      createCanvas(windowWidth, windowHeight);
+
+      // Request access to the user's webcam
+      // createCapture(VIDEO) returns a p5.Element containing the video stream
+      capture = createCapture(VIDEO);
+
+      // Hide the default HTML video element that p5 creates
+      // We only want to draw it onto the canvas ourselves
+      capture.hide();
+    }
+
+    function draw() {
+      // Clear the background
+      background(30);
+
+      // We want to draw the video in the center of the canvas while maintaining aspect ratio
+      if (capture.loadedmetadata) {
+        let videoAspect = capture.width / capture.height;
+        let canvasAspect = width / height;
+        let drawW, drawH, drawX, drawY;
+
+        // Calculate dimensions to fit video within canvas
+        if (canvasAspect > videoAspect) {
+          drawH = height;
+          drawW = height * videoAspect;
+        } else {
+          drawW = width;
+          drawH = width / videoAspect;
+        }
+
+        drawX = (width - drawW) / 2;
+        drawY = (height - drawH) / 2;
+
+        // Draw the video capture to the canvas
+        // We flip it horizontally so it acts like a mirror
+        push();
+        translate(width, 0); // Move context to the right edge
+        scale(-1, 1);       // Flip the context horizontally
+        // Since we flipped, we need to adjust the X coordinate for drawing
+        // The center is still the center, but we draw from the "right" side relative to the original
+        image(capture, width - drawX - drawW, drawY, drawW, drawH);
+        pop();
+
+        // Optional: add a creative filter or effect
+        // Example: a simple pixelation or color tint
+        // tint(255, 150, 200); // Tint pinkish
+      }
+
+      // Add instruction/status text
+      fill(255);
+      noStroke();
+      textAlign(CENTER, CENTER);
+      textSize(16);
+      text("Webcam Video Feed", width / 2, height - 30);
+    }
+
+    // Handle window resizing
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Input Devices</title>
+  <!-- Load p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <style>
+    /* Reset margins and overflow to ensure sketch fills iframe cleanly */
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { display: block; cursor: crosshair; }
+  </style>
+</head>
+<body>
+  <script>
+    // Variables for brush state
+    let brushColor;
+    let brushSize = 20;
+
+    function setup() {
+      // Create a canvas to fill the window
+      createCanvas(windowWidth, windowHeight);
+
+      // Set initial background
+      background(30);
+
+      // Initial brush color is white
+      brushColor = color(255);
+    }
+
+    function draw() {
+      // We don't clear the background in draw() so the drawing persists!
+
+      // Draw a trail if the mouse is pressed
+      if (mouseIsPressed) {
+        stroke(brushColor);
+        strokeWeight(brushSize);
+        // Draw a line from the previous mouse position to current
+        // This makes smooth curves instead of dots
+        line(pmouseX, pmouseY, mouseX, mouseY);
+      }
+
+      // Draw instructions (clear a small area at the top for them)
+      noStroke();
+      fill(30);
+      rect(0, 0, width, 50);
+
+      fill(255);
+      textAlign(CENTER, TOP);
+      textSize(16);
+      text("Draw with Mouse! Keys: 1-Red, 2-Green, 3-Blue, C-Clear, Up/Down-Size", width / 2, 15);
+
+      // Draw brush preview indicator in top-left
+      fill(brushColor);
+      stroke(255);
+      strokeWeight(1);
+      ellipse(30, 25, brushSize, brushSize);
+    }
+
+    // Handle keyboard input
+    function keyPressed() {
+      if (key === '1') {
+        brushColor = color(255, 50, 50); // Red
+      } else if (key === '2') {
+        brushColor = color(50, 255, 50); // Green
+      } else if (key === '3') {
+        brushColor = color(50, 100, 255); // Blue
+      } else if (key === '4') {
+        brushColor = color(255, 255, 50); // Yellow
+      } else if (key === '5') {
+        brushColor = color(255); // White
+      } else if (key === 'c' || key === 'C') {
+        background(30); // Clear canvas by redrawing background
+      } else if (keyCode === UP_ARROW) {
+        brushSize += 5; // Increase brush size
+      } else if (keyCode === DOWN_ARROW) {
+        brushSize = max(5, brushSize - 5); // Decrease, but not below 5
+      }
+    }
+
+    // Double click to clear canvas
+    function doubleClicked() {
+      background(30);
+    }
+
+    // Handle window resizing
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+      background(30); // Redraw background on resize to clear glitchy areas
+    }
+  </script>
+</body>
+</html>
