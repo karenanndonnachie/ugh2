@@ -1,7 +1,0 @@
-127.0.0.1 - - [05/Apr/2026 08:20:36] "GET /index.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:20:48] "GET /sketches/mic.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:21:40] "GET /index.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:21:41] "GET /sketches/mic.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:21:41] "GET /sketches/video.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:21:41] "GET /sketches/sound.html HTTP/1.1" 200 -
-127.0.0.1 - - [05/Apr/2026 08:21:41] "GET /sketches/input.html HTTP/1.1" 200 -

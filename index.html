@@ -34,6 +34,16 @@
       height: 100%;
       border: 0;
     }
+    pre code {
+      display: block;
+      padding: 1rem;
+      overflow-x: auto;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: monospace;
+      font-size: 0.875rem;
+      border-radius: 0.25rem;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -57,10 +67,18 @@
           This sketch uses <code class="bg-gray-200 px-1 rounded text-sm">p5.AudioIn()</code> to capture audio from your device's microphone. The amplitude (volume) of the incoming audio is mapped to the size and color of a central shape.
         </p>
         <p class="text-sm text-gray-500 italic">Note: You must click inside the frame to start the audio context, and allow browser microphone permissions.</p>
+
+        <div class="flex space-x-4 pt-4">
+          <button onclick="toggleCode('mic-code', 'sketches/mic.html')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-sm font-bold uppercase tracking-wider transition-colors">&lt;&gt; View Code</button>
+          <a href="sketches/mic.html" target="_blank" class="px-4 py-2 bg-black text-white hover:bg-gray-800 text-sm font-bold uppercase tracking-wider transition-colors">Fullscreen &nearr;</a>
+        </div>
       </div>
       <div class="lg:col-span-8 shadow-xl">
         <div class="sketch-container">
           <iframe src="sketches/mic.html" title="Microphone Input Sketch" allow="microphone"></iframe>
+        </div>
+        <div id="mic-code" class="hidden mt-4">
+          <pre><code>Loading...</code></pre>
         </div>
       </div>
     </section>
@@ -76,10 +94,18 @@
           Using <code class="bg-gray-200 px-1 rounded text-sm">createCapture(VIDEO)</code>, this sketch accesses your device's camera. The video feed is drawn onto the canvas and flipped horizontally to act like a mirror.
         </p>
         <p class="text-sm text-gray-500 italic">Note: Requires granting camera permissions in your browser.</p>
+
+        <div class="flex space-x-4 pt-4">
+          <button onclick="toggleCode('video-code', 'sketches/video.html')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-sm font-bold uppercase tracking-wider transition-colors">&lt;&gt; View Code</button>
+          <a href="sketches/video.html" target="_blank" class="px-4 py-2 bg-black text-white hover:bg-gray-800 text-sm font-bold uppercase tracking-wider transition-colors">Fullscreen &nearr;</a>
+        </div>
       </div>
       <div class="lg:col-span-8 shadow-xl">
         <div class="sketch-container">
           <iframe src="sketches/video.html" title="Video Capture Sketch" allow="camera"></iframe>
+        </div>
+        <div id="video-code" class="hidden mt-4">
+          <pre><code>Loading...</code></pre>
         </div>
       </div>
     </section>
@@ -94,10 +120,18 @@
         <p class="text-gray-600 leading-relaxed">
           Generates sound using a <code class="bg-gray-200 px-1 rounded text-sm">p5.Oscillator</code>. Click and drag across the canvas: the X-axis controls frequency (pitch), and the Y-axis controls amplitude (volume).
         </p>
+
+        <div class="flex space-x-4 pt-4">
+          <button onclick="toggleCode('sound-code', 'sketches/sound.html')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-sm font-bold uppercase tracking-wider transition-colors">&lt;&gt; View Code</button>
+          <a href="sketches/sound.html" target="_blank" class="px-4 py-2 bg-black text-white hover:bg-gray-800 text-sm font-bold uppercase tracking-wider transition-colors">Fullscreen &nearr;</a>
+        </div>
       </div>
       <div class="lg:col-span-8 shadow-xl">
         <div class="sketch-container">
           <iframe src="sketches/sound.html" title="Sound Synthesizer Sketch"></iframe>
+        </div>
+        <div id="sound-code" class="hidden mt-4">
+          <pre><code>Loading...</code></pre>
         </div>
       </div>
     </section>
@@ -112,10 +146,18 @@
         <p class="text-gray-600 leading-relaxed">
           A simple drawing application demonstrating event handling. It tracks <code class="bg-gray-200 px-1 rounded text-sm">mouseX</code> and <code class="bg-gray-200 px-1 rounded text-sm">mouseY</code> for drawing, and listens for <code class="bg-gray-200 px-1 rounded text-sm">keyPressed()</code> to change brush colors and sizes.
         </p>
+
+        <div class="flex space-x-4 pt-4">
+          <button onclick="toggleCode('input-code', 'sketches/input.html')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-sm font-bold uppercase tracking-wider transition-colors">&lt;&gt; View Code</button>
+          <a href="sketches/input.html" target="_blank" class="px-4 py-2 bg-black text-white hover:bg-gray-800 text-sm font-bold uppercase tracking-wider transition-colors">Fullscreen &nearr;</a>
+        </div>
       </div>
       <div class="lg:col-span-8 shadow-xl">
         <div class="sketch-container">
           <iframe src="sketches/input.html" title="User Input Devices Sketch"></iframe>
+        </div>
+        <div id="input-code" class="hidden mt-4">
+          <pre><code>Loading...</code></pre>
         </div>
       </div>
     </section>
@@ -127,5 +169,42 @@
     <p class="text-sm font-body uppercase tracking-widest opacity-50">Built with p5.js</p>
   </footer>
 
+  <script>
+    async function toggleCode(elementId, url) {
+      const codeContainer = document.getElementById(elementId);
+
+      // Toggle visibility
+      if (codeContainer.classList.contains('hidden')) {
+        codeContainer.classList.remove('hidden');
+
+        // Fetch and display if we haven't already
+        const codeElement = codeContainer.querySelector('code');
+        if (codeElement.innerText === 'Loading...') {
+          try {
+            const response = await fetch(url);
+            const html = await response.text();
+
+            // Extract content inside <script> tags using regex
+            // Note: In case there are multiple scripts, we want the one with the actual sketch logic.
+            // For our simple sketches, taking the last script block should work, or just taking all non-src script blocks.
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const scripts = doc.querySelectorAll('script:not([src])');
+
+            let code = '';
+            scripts.forEach(s => code += s.textContent + '\n');
+
+            // Clean up leading/trailing whitespace
+            codeElement.textContent = code.trim();
+          } catch (err) {
+            codeElement.textContent = 'Error loading code: ' + err.message;
+          }
+        }
+      } else {
+        codeContainer.classList.add('hidden');
+      }
+    }
+  </script>
 </body>
 </html>

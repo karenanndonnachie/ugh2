@@ -13,6 +13,16 @@
 </head>
 <body>
   <script>
+    /**
+     * VIDEO WEBCAM SKETCH
+     * -------------------
+     * This sketch uses createCapture(VIDEO) to request access to the
+     * user's webcam. The raw video feed is captured as an HTML element
+     * which is hidden, and instead we use the image() function to draw
+     * the video onto our p5.js canvas, flipping it horizontally so it
+     * feels like looking into a mirror.
+     */
+
     let capture;
 
     function setup() {

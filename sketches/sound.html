@@ -4,76 +4,93 @@
   <meta charset="UTF-8">
   <title>Sound Generation</title>
   <!-- Load p5.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
   <!-- Load p5.sound library for audio functionality -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+  <!-- Load p5.brush library -->
+  <script src="https://cdn.jsdelivr.net/npm/p5.brush@latest"></script>
   <style>
     /* Reset margins and overflow to ensure sketch fills iframe cleanly */
-    body { margin: 0; padding: 0; overflow: hidden; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    canvas { display: block; cursor: crosshair; }
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #1a1c1c; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; cursor: crosshair;}
+    canvas { display: block; }
+    #instructions { position: absolute; pointer-events: none; text-align: center; }
   </style>
 </head>
 <body>
+  <div id="instructions">Click and drag to make sound</div>
   <script>
+    /**
+     * SOUND SYNTHESIZER SKETCH
+     * ------------------------
+     * This sketch uses a p5.Oscillator to generate audio waveforms.
+     * When you click and drag the mouse, the X-axis controls the pitch
+     * (frequency) and the Y-axis controls the volume (amplitude).
+     * The visualizer uses p5.brush on a WEBGL canvas to draw expressive,
+     * hand-drawn style circles that respond to these audio parameters.
+     */
+
     let osc;
     let playing = false;
 
     function setup() {
-      // Create a canvas to fill the window
-      createCanvas(windowWidth, windowHeight);
+      // p5.brush requires WEBGL mode
+      createCanvas(windowWidth, windowHeight, WEBGL);
 
       // Initialize an oscillator
-      osc = new p5.Oscillator('sine'); // can be 'sine', 'triangle', 'sawtooth', 'square'
+      osc = new p5.Oscillator('sine');
 
-      // We won't start it immediately because browsers require user interaction
-      // before audio playback is allowed.
+      // Setup p5.brush
+      brush.scaleBrushes(1.5);
+
+      // Clear background once
+      background(30);
     }
 
     function draw() {
-      background(30);
+      // We don't fully clear the background every frame to leave a trail,
+      // but we draw a semi-transparent rect to fade older strokes.
+      // In WEBGL, drawing a large rect with low opacity fakes a motion blur.
+      push();
+      translate(0, 0, -1); // Push behind strokes
+      fill(30, 30, 30, 40);
+      noStroke();
+      rectMode(CENTER);
+      rect(0, 0, width * 2, height * 2);
+      pop();
 
-      // If playing, adjust sound based on mouse position
+      // If playing, adjust sound and draw based on mouse position
       if (playing) {
-        // Map mouse X to frequency (pitch)
-        // Range from 100Hz to 1000Hz is a good audible range
+        document.getElementById('instructions').style.display = 'none';
+
+        let mX = mouseX - width/2;
+        let mY = mouseY - height/2;
+
         let freq = map(mouseX, 0, width, 100, 1000);
         osc.freq(freq);
 
-        // Map mouse Y to amplitude (volume)
-        // Y goes from 0 at top to height at bottom
-        // We'll map top (0) to max volume (1.0) and bottom (height) to min volume (0.0)
         let amp = map(mouseY, 0, height, 1.0, 0.0);
-        osc.amp(amp, 0.1); // 0.1 is the smoothing time to avoid clicks
+        osc.amp(amp, 0.1);
 
-        // Visualize the sound
-        // Draw a circle that changes size based on amplitude and color based on frequency
-        let r = map(freq, 100, 1000, 0, 255);
-        let b = map(freq, 100, 1000, 255, 0);
-        fill(r, 100, b);
-        noStroke();
+        // Visualize the sound using p5.brush
+        let r = map(freq, 100, 1000, 50, 255);
+        let b = map(freq, 100, 1000, 255, 50);
 
-        let size = map(amp, 0, 1, 10, min(width, height) / 2);
-        ellipse(mouseX, mouseY, size, size);
-      } else {
-        // Draw prompt if not playing
-        fill(255);
-        textAlign(CENTER, CENTER);
-        textSize(16);
-        text("Click and drag to make sound", width / 2, height / 2);
-      }
+        let size = map(amp, 0, 1, 10, min(width, height) / 3);
 
-      // Display current values if playing
-      if (playing) {
-        fill(255);
-        textAlign(LEFT, TOP);
-        textSize(14);
-        text(`Freq: ${Math.round(osc.getFreq())} Hz\nAmp: ${osc.getAmp().toFixed(2)}`, 20, 20);
+        // Draw with brush
+        brush.set("HB", color(r, 100, b), 2);
+        brush.noFill();
+        brush.circle(mX, mY, size, true);
+
+        // Add some splatter if volume is high
+        if (amp > 0.6) {
+           brush.set("spray", color(r, 100, b, 150), 1);
+           brush.circle(mX, mY, size * 1.5, true);
+        }
       }
     }
 
-    // Start playing sound when mouse is pressed
     function mousePressed() {
-      // Start the audio context if it isn't running yet
       userStartAudio();
 
       if (!playing) {
@@ -82,12 +99,9 @@
       }
     }
 
-    // Stop playing sound when mouse is released
     function mouseReleased() {
       if (playing) {
-        // Ramp amplitude to 0 over 0.5 seconds to avoid a click
         osc.amp(0, 0.5);
-        // Stop oscillator after the ramp
         setTimeout(() => {
           osc.stop();
           playing = false;
@@ -95,9 +109,9 @@
       }
     }
 
-    // Handle window resizing
     function windowResized() {
       resizeCanvas(windowWidth, windowHeight);
+      background(30);
     }
   </script>
 </body>
