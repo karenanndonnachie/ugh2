@@ -1,0 +1,323 @@
+@charset "UTF-8";
+/* CSS Document */
+/* ********* MOBILE FIRST CSS FOR ART + AUSTRALIA ISSUE 57.2, 2021 ~>
+            DEVELOPED BY KAREN ANN DONNACHIE & ANDY SIMIONATO
+            KARENANDY.COM , THISISAMAGAZINE.COM , ATOMICACTIVITY.COM ********* */
+/* ********** MEDIA QUERIES FOR TABLET &/OR DESKTOP *********** */
+@media (min-width: 756px)
+{
+#longform{width: 80%;padding: 0em 1em 3em 1em;}	
+.home::before{ content: "Art + Australia";}
+}
+@media (min-width:800px) and (orientation: landscape){
+	#listenText, #duration{display:block; width:25%;}
+	#listenText{text-align:left;}
+	#duration{text-align:right;}
+	#listen{width:50%;}
+	}
+@media (min-width: 600px) and (orientation: landscape)
+{
+	.wordtitle {	
+	font-size:1.3em !important;
+	}
+	#scrolldown{top:87%;}
+	.coverPage {
+	height:95vh;}
+	.banner{height:40vh;}
+	.links{font-size: 1.5em;padding-left: 1em;}
+	 .colophon{width: calc(33% + 4px - 2em);padding-left:0em;}
+	#buylink:before{content:'Buy Now ';}
+	#buylink:after{content:'AUD';}
+	.grid{    display: flex;grid-gap: 4px;}
+	.indexfeature2{display:none;}
+	#longform{width: 75%;padding: 0em 2em 3em 2em;font-size:1.2em;line-height:1.5em;}
+	#longform figure {max-width: 100%;/*
+    height: auto;max-height: calc(100vh - 6em);width:auto;
+    max-width: 70vw;*/
+    max-height: calc(100vh - 6em);
+    height: auto;
+	justify-content: center;
+    /* max-height: calc(100vh - 6em); */
+    width: fit-content;}
+	.menuitem{width:30%;}
+	.headerPic img{    display: block;
+    position: relative;
+    top: 5px;
+    min-width: 100vw;
+    height: auto;
+    min-height: 84vh;
+    /* height: calc(84vh - 1em);
+    width: auto; */
+    position: relative;
+/*    top: auto;
+*/    overflow: auto;/*display:block; position: relative; top: 5px;min-width:100%;height:auto; 
+    min-height: 75vh;
+	height: calc(84vh - 1em);
+    position: relative;
+    top: auto;
+    overflow: auto;*/}
+  body {/*font-size: 20px;*/width: 100%;}
+
+  #header {height: calc(2.4em + 2px) !important;}
+  div.menu{/*font-size: 1.6em;padding:top;*/}
+  #menuBuffer{width:15%;}
+  #search{text-align:right;width:25%;}
+  #login{text-align: right;}
+
+  #homeMenuDrop{height:100vh;width:100vw;}
+  a.issue::after{ content: "Magazine";}
+#header.ul li{width: 33% !important;}
+	.home{width:50%;}
+	#magmenu{   
+	width:33%;
+    text-align: center;
+    /*padding: 1em;
+    padding-top: 0.3em;*/
+	padding-bottom:none;
+	}
+	#aa_menu{width:33%;
+    text-align: center;
+    padding: 1em;
+    padding-top: 0.3em;
+	padding-bottom:none;}
+	#usermenu{
+	width: calc(33% - 1.5em);
+    left: 6px;
+    text-align: center;
+    padding: 1em;
+    padding-top: 0.3em;
+	padding-bottom:none;}
+#magmenu.dropdown-content{
+    left: 1em;width:calc(33vw - 4px);max-height:90vh;}
+	
+	/*.usermenu div{border-bottom:thin;}*/
+  .footer{min-height: unset;max-height:unset; height:100%;}
+  .flow{position:relative;grid-gap:4px;display: flex;}
+.div3 .card{position:relative;background-image:url(../aaImages/empty.gif);background-size:cover;height:calc(80vh - 4px);min-width:calc(33% - 4px);background-position:Center;}
+
+.div2 .card{position:relative;background-image:url(../aaImages/empty.gif);background-size:cover;min-height:calc(80vh - 4px);min-width:calc(50% - 4px);background-position:Center;}
+  /* .card{max-height: calc(100% - 8em);} */
+  .div2, .div3, .div4{height:80vh;min-width:33vw;}
+  .sqdiv3:first-of-type{top:1.6em;margin-top:-2px;border-top:0px !important;}
+  .sqdiv3 .name{max-height:calc(0.8 * 33vw - 4px);border-bottom:4px black solid;}
+  .sqdiv3{ }
+  .sqdiv3 {
+    position:relative;border-top:black 4px solid;
+    -ms-grid-columns: calc(33% - 4px) calc(33% - 4px) calc(33% - 4px) ; /*(minmax(100px, 1fr))[auto-fit];*/
+    grid-template-columns: calc(33% - 4px) calc(33% - 4px) calc(33% - 4px)  ; /*repeat(auto-fit, minmax(100px, 1fr));*/
+    grid-template-rows: 100% ;
+
+  	}
+  .sqdiv3 .card{background-size: cover;
+  overflow:visible;
+    min-width: calc(33vw - 4px);
+    height: calc(33vw - 4px);
+	min-height: calc(33vw - 4px);
+    background-position: top;
+    position: relative;
+    background-image: url(../aaImages/empty.gif);
+}
+  .div4 {
+    position:relative;
+    -ms-grid-columns: calc(25% - 4px) calc(25% - 4px) calc(25% - 4px) 25% ; /*(minmax(100px, 1fr))[auto-fit];*/
+    grid-template-columns: 25% 25% 25% 25% ; /*repeat(auto-fit, minmax(100px, 1fr));*/
+    grid-template-rows: 100% ;
+    }
+  .div3 {
+    position:relative;
+    -ms-grid-columns: calc(33% - 4px) calc(33% - 4px) calc(33% - 4px) ; /*(minmax(100px, 1fr))[auto-fit];*/
+    grid-template-columns: calc(33% - 4px) calc(33% - 4px) calc(33% - 4px)  ; /*repeat(auto-fit, minmax(100px, 1fr));*/
+    grid-template-rows: 100% ;
+
+  	}
+  .div2{
+    position:relative;
+    -ms-grid-columns: calc(50% - 4px) 50% ; /*(minmax(100px, 1fr))[auto-fit];*/
+    grid-template-columns: calc(50% - 4px) 50% ; /*repeat(auto-fit, minmax(100px, 1fr));*/
+    grid-gap:4px;
+    grid-template-rows: 100% ;
+    	}
+  .div1 {
+    overflow-x:hidden;
+    overflow-y: visible;
+    position:relative;
+    -ms-grid-columns: 100% ; /*(minmax(100px, 1fr))[auto-fit];*/
+    grid-template-columns: 100%; /*repeat(auto-fit, minmax(100px, 1fr));*/
+
+  }
+
+.grid-container{
+  top: 2em;
+  margin-top: 2em;
+  height: calc(100vh - 4em);
+  grid-template-areas:
+    '. middle right '
+    'left middle right '
+    'left footer footer2';
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 35% 40% 25%;
+}
+
+/* div.card img  {min-height:100%;margin:auto;} */
+
+div.card p {
+  position:absolute;
+  height: 20%;
+  top: 80%;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  color: black;
+  padding: 5%;
+  font-size: 1.5em;
+  }
+.div1 .card{height:max-content;overflow-x: hidden;}
+.div1 .card img {min-width:100vw;height:auto;object-fit: cover;}
+/* .div2 .card img {
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 80vh;
+  object-fit: cover;
+} */
+.div1 img{min-width:100vw;}
+/* .div3 img {position:relative;min-width:calc(100% - 4px);
+min-height: calc(70vh - 8em);
+max-height: calc(70vh - 8em);
+object-fit: cover;} */
+/* .div4 .card img {min-width:23vw;height:auto;} */
+.squiggle {
+  width:62%;
+  top:0px;
+	/* left:20%; */
+  }
+.ellipse {
+  position: relative;
+  width:50%;
+  bottom:10%;
+  }
+.left{max-width:unset;margin-left:3%;}
+.right{max-width:unset;margin-right:3%;}
+.middle {max-width:100%;max-height: 100%;}
+.cover{}
+.cover img {max-height: 100%;width:auto;}
+.clip-me {height:100%;}
+.cardImage {height:100%;background-size:contain;}
+.liminalSpace{font-size:1.6em;top:1.6em;}
+#fullImage2 {
+  margin-top: -28%; 
+    z-index: 5;
+    height: auto;
+}
+.fullHeight{width:100%;}
+figure{width: 100%;margin:auto;}
+figcaption{height:max-content;}
+.inlinepic img{
+	     max-width: 70vw;
+	 max-height:calc(100vh - 4em);;width:auto !important; 
+}
+div.name {font-size:2.5em;min-width:80%;}
+div.name svg{
+    top: 0em;
+    /* margin-bottom: -25%; */
+    max-height: 70vh;
+    height: 70vh;
+    min-width: 80%;
+    }
+
+.dropdown a, .dropdown a:hover{font-weight:normal;}
+.dropdown-content {
+  display: none;
+  min-width: 50vw;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+   width: calc(33% - 0.6em);
+    left: 0;
+	/*left: calc(-33vw - 2em);*/
+    position: absolute;
+    /*padding-left: 1em;
+	padding-bottom:none;*/
+    margin-left: -1em;
+    top: 1.6em;
+}
+
+.dropdown-content a {
+  color: black;
+  padding:0.2em;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {font-weight: normal;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+
+}
+@media (orientation: portrait){
+	.headerPic img{display:block; position: relative; top: 5px;min-width:100vw;/*height: 84vh;*/min-height:84vh;width:auto; 
+width:auto;position: relative;
+    top: auto;
+    overflow: auto;}
+  .plainContainer{min-height:calc(100vh - 3.2em);}
+ 
+  
+}
+/******************* SVG ANIMATION *****************/
+#log {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 40px;
+  /*bottom: 0;*/
+  margin: auto;
+  color: #393;
+  width: 200px;
+  height: 40px;
+  overflow: hidden;
+}
+#log p {
+  margin: 0;
+}
+
+svg#eerc-logo-fill-wnw, /*// West-northwest rectangle*/
+svg#eerc-logo-fill-ene, /*// East-northeast rectangle*/
+svg#eerc-logo-fill-sse { 
+/*// South-southeast rectangle
+*/  display: none;
+}
+
+@media (min-width: 840px)
+{
+	#longform{font-size:1.5em;}
+	
+}
+@media (min-width: 1080px)
+{
+	#longform{font-size:1.5em;}
+	
+}
+
+@media print {
+	
+  @page {
+	margin: 1.5cm !important;
+	size: A4 landscape;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 2.4em;
+    content: counter(page);
+	@top-right {
+    content: "Art+Australia " counter(page);
+	break-after: left;
+  }
+ 
+}
+@media screen and (prefers-reduced-motion: reduce) {  
+  * {
+    /* Very short durations means JavaScript that relies on events still works */
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
