@@ -4,20 +4,17 @@ let loaded = false;
 let touchStartY = null;
 let posterEl = null;
 
-// Target vs Current tracking for butter-smooth motion
 let targetProgress = 0;
 let currentProgress = 0;
 
 let targetYOffset = 0;
 let currentYOffset = 0;
 
-let isSeeking = false;
-let lastSeekTime = 0;
-let lastGoodFrame = null;
-let lastTimeUpdate = 0;
-
 function showPoster() {
-    if (posterEl) posterEl.style.display = 'block';
+    if (posterEl) {
+        posterEl.style.display = 'block';
+        posterEl.style.opacity = '1';
+    }
 }
 
 function hidePoster() {
@@ -44,8 +41,6 @@ function hasDrawableFrame() {
 function syncCanvasToVideo() {
     if (width !== windowWidth || height !== windowHeight) {
         resizeCanvas(windowWidth, windowHeight);
-        lastGoodFrame = createGraphics(windowWidth, windowHeight);
-        lastGoodFrame.pixelDensity(pixelDensity());
     }
 }
 
@@ -60,9 +55,6 @@ function applyMobileVideoAttrs(v) {
 function setup() {
     let cnv = createCanvas(windowWidth, windowHeight);
     let ctx = cnv.elt.getContext('2d', { colorSpace: 'srgb' });
-    
-    lastGoodFrame = createGraphics(windowWidth, windowHeight);
-    lastGoodFrame.pixelDensity(pixelDensity());
     
     loop(); 
     
@@ -165,48 +157,27 @@ function touchEnded() {
 }
 
 function draw() {
-    if (!loaded) {
-        showPoster();
-        paintFallback();
+    if (!loaded || !hasDrawableFrame()) {
         return;
     }
     hidePoster();
     background('#c0c0c0');
 
-    currentProgress = lerp(currentProgress, targetProgress, 0.14);
+    currentProgress = targetProgress;
     
-    const videoAspectWidth = (height / video.elt.videoHeight) * video.elt.videoWidth;
-    let renderWidth = width;
-    let renderHeight = height;
-    let maxScroll = 0;
-
-    const computedHeight = (width / video.elt.videoWidth) * video.elt.videoHeight;
-    if (computedHeight > height) {
-        renderHeight = computedHeight;
-        maxScroll = renderHeight - height;
-        targetYOffset = -maxScroll * currentProgress;
-    } else {
-        targetYOffset = 0;
-    }
+    const scale = width / video.elt.videoWidth;
+    const renderWidth = video.elt.videoWidth * scale;
+    const renderHeight = video.elt.videoHeight * scale;
+    targetYOffset = -Math.max(0, renderHeight - height) * currentProgress;
 
     currentYOffset = lerp(currentYOffset, targetYOffset, 0.14);
     
-    let targetTime = currentProgress * duration;
-    let now = millis();
-    
-    if (Math.abs(video.elt.currentTime - targetTime) > 0.03 && (now - lastTimeUpdate > 16)) {
-        video.elt.currentTime = targetTime;
-        lastTimeUpdate = now;
-    }
+    const frame = Math.round(currentProgress * 120);
+    image(video, 0, currentYOffset, renderWidth, renderHeight);
 
-    image(video, 0, currentYOffset, width, renderHeight);
-    
-    // *** CRITICAL: BROADCAST PROGRESS EVERY FRAME ***
-    if (window.parent && window.parent !== window) {
-        window.parent.postMessage({
-            type: 'RYAN_ANIMATION_PERCENTAGE',
-            percent: currentProgress
-        }, '*');
+    const targetTime = (frame + 0.5) * duration / 121;
+    if (!video.elt.seeking && Math.abs(video.elt.currentTime - targetTime) > 0.01) {
+        video.elt.currentTime = targetTime;
     }
 }
 
@@ -215,9 +186,9 @@ function windowResized() {
     draw();
 }
 window.addEventListener('message', (event) => {
-    if (event.data.type === 'SCROLL_PROGRESS') {
-        // Parent scroll directly controls animation progress
-        targetProgress = event.data.percent;
-        console.log('Scroll Progress:', event.data.percent.toFixed(3));
+    if (event.source === window.parent && event.origin === window.location.origin &&
+        event.data && event.data.type === 'SCROLL_PROGRESS' &&
+        Number.isFinite(event.data.percent)) {
+        targetProgress = Math.min(Math.max(event.data.percent, 0), 1);
     }
 });
