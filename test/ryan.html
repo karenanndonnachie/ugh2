@@ -51,19 +51,9 @@ The Art + Australia Study Centre includes research focussed discussions and essa
     width: 100%;
     position: relative;
     overflow: hidden;
-    height: 121vw;
+    height: auto;
+    aspect-ratio: 1076 / 1280;
     background-color: #c0c0c0;
-    /* CRITICAL: Make this section take up MORE vertical space */
-    /* so parent scroll is slower relative to animation */
-}
-#heroBox {
-  animation: panHero linear;
-  animation-timeline: scroll();
-  animation-range: 0px 1200px;
-}
-
-@keyframes panHero {
-  to { transform: translateY(600px); }
 }
 
 #Hero {
@@ -82,7 +72,7 @@ The Art + Australia Study Centre includes research focussed discussions and essa
     width: 100%;
     height: 100%;
     border: none;
-    pointer-events: auto;
+    pointer-events: none;
 }
 
 		#heroBox img {
@@ -115,8 +105,8 @@ The Art + Australia Study Centre includes research focussed discussions and essa
 			height: 100% !important;
 		}
 
-		#heroBox+.liminalSpace.center.bakelite {
-			margin-top: -1.5em !important;
+		#heroBox + .liminalSpace.center.bakelite {
+			margin-top: 0 !important;
 		}
 
 		.flow {
@@ -231,10 +221,6 @@ The Art + Australia Study Centre includes research focussed discussions and essa
 		}
 
 		@media (min-width: 600px) and (orientation: landscape) {
-			#heroBox {
-				height: 100vw;
-				min-height: 121vw;
-			}
 			#scrolldown {
 				top: 84%;
 			}
@@ -405,10 +391,6 @@ The Art + Australia Study Centre includes research focussed discussions and essa
 		}
 
 		@media (min-width: 600px) and (orientation: landscape) {
-			.coverPage {
-				height: auto !important;
-			}
-
 			#Karpowership {
 				height: 85vh !important;
 			}
@@ -1030,7 +1012,7 @@ background: radial-gradient(circle, rgba(230, 228, 223, 1) 4%, rgba(255, 255, 0,
 <div id="heroBox" class="coverPage">
 	<figure id="Hero" class="headerPic" style="margin:0;padding:0;width:100%;height:100%;">
 		<div style="width:100%;height:100%;">
-			<iframe src="61_2/ryanNew.html" style="width:100%; height:100%; border:none; pointer-events:auto;"></iframe>
+			<iframe src="ryanNew.html" title="Animated cover by Ryan Presley" tabindex="-1"></iframe>
 			<!-- scrolling="no"<img src="" alt="Cover image" fetchpriority="high" loading="eager" decoding="async"> -->
 		</div>
 
@@ -1115,19 +1097,6 @@ background: radial-gradient(circle, rgba(230, 228, 223, 1) 4%, rgba(255, 255, 0,
 		document.body.style.display = 'block'; //cause a repaint
 	});
 	
-window.addEventListener('message', (event) => {
-    if (event.data && event.data.type === 'RYAN_ANIMATION_PERCENTAGE') {
-        let percent = event.data.percent; // 0.0 to 1.0
-
-        const heroBox = document.querySelector('#heroBox');
-        if (heroBox) {
-            let maxHeroScroll = heroBox.scrollHeight - heroBox.clientHeight;
-            
-            // Instantly sync the parent box scroll position to match the video scrub percentage
-            heroBox.scrollTop = percent * maxHeroScroll;
-        }
-    }
-});
 </script>
 <!--<script async src="https://static.addtoany.com/menu/page.js"></script>
 AddToAny END -->
@@ -1135,16 +1104,6 @@ AddToAny END -->
 </div>
 
 <script type="text/javascript">
-	var arrow_keys_handler = function (e) {
-		switch (e.code) {
-			case "ArrowUp": case "ArrowDown": case "ArrowLeft": case "ArrowRight":
-			case "Space": e.preventDefault(); break;
-			default: break; // do not block other keys
-		}
-	};
-	window.addEventListener("keydown", arrow_keys_handler, false);
-
-
 	$(window).on("load", function () {
 		$(window).scroll(function () {
 			var windowBottom = $(this).scrollTop() + $(this).innerHeight();
@@ -1185,68 +1144,29 @@ AddToAny END -->
 		$("#title").addClass('titlefade');
 	}, 6000);
 
-const heroBox = document.getElementById('heroBox');
-const heroSection = document.getElementById('Hero');
-const heroIframe = heroBox ? heroBox.querySelector('iframe') : null;
+</script>
 
-console.log('=== INIT ===');
-console.log('heroBox:', heroBox);
-console.log('heroSection:', heroSection);
-console.log('heroIframe:', heroIframe);
-console.log('heroSection exists?', !!heroSection);
-console.log('heroIframe exists?', !!heroIframe);
+<script>
+	(() => {
+		const hero = document.getElementById('heroBox');
+		const iframe = hero.querySelector('iframe');
+		const divider = hero.nextElementSibling;
 
-function updateAnimationFromScroll() {
-    console.log('🔄 updateAnimationFromScroll called');
-    console.log('heroBox:', !!heroBox, 'heroIframe:', !!heroIframe);
-    
-    if (!heroBox || !heroIframe) {
-        console.log('❌ Missing heroBox or heroIframe, returning');
-        return;
-    }
-    
-    const heroRect = heroBox.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    
-    const scrollProgress = Math.max(0, Math.min(1,
-        (windowHeight - heroRect.top) / (windowHeight + heroRect.height)
-    ));
-    
-    console.log('Scroll Progress:', scrollProgress.toFixed(3));
-    
-    // Send to iframe
-    try {
-        heroIframe.contentWindow.postMessage({
-            type: 'SCROLL_PROGRESS',
-            percent: scrollProgress
-        }, '*');
-        console.log('essage sent');
-    } catch (e) {
-        console.log('Error:', e);
-    }
-    
-    // PAN THE PAINTING
-    console.log('Checking heroSection:', !!heroSection);
-    
-    if (heroSection) {
-        console.log('eroSection found, applying pan');
-        const paintingOverflow = heroBox.clientHeight * 2;
-        const yOffset = -paintingOverflow * scrollProgress;
-        
-        heroSection.style.transform = `translateY(${yOffset}px)`;
-        
-        console.log('Transform applied:', heroSection.style.transform);
-    } else {
-        console.log('eroSection is falsy');
-    }
-}
+		function updateCover() {
+			const rect = hero.getBoundingClientRect();
+			const stickyTop = parseFloat(getComputedStyle(divider).top) || 0;
+			// Leave part of the painting visible below the sticky divider at the last frame.
+			const visibleAtEnd = stickyTop + divider.offsetHeight + 48;
+			const distance = Math.max(1, rect.height - visibleAtEnd);
+			const progress = Math.max(0, Math.min(1, -rect.top / distance));
+			iframe.contentWindow.postMessage({ type: 'SCROLL_PROGRESS', percent: progress }, window.location.origin);
+		}
 
-window.addEventListener('scroll', updateAnimationFromScroll, { passive: true });
-
-setTimeout(() => {
-    console.log('Initial call...');
-    updateAnimationFromScroll();
-}, 500);
+		iframe.addEventListener('load', updateCover);
+		window.addEventListener('scroll', updateCover, { passive: true });
+		window.addEventListener('resize', updateCover);
+		updateCover();
+	})();
 </script>
 
 </div>
